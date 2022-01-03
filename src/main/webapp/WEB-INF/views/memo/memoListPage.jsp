@@ -73,6 +73,7 @@
 		
              
         <!-- 수정할부분 -->
+        
 		<c:forEach items="${list}" var="list">
 	 		<a href="${path}/memo/detail?bno=${list.bno}">
 	 		<div class="item low new col-md-4 grid cs-style-3">
