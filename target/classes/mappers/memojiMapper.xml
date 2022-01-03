@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.memoji.mappers.memoji">
+	
+	<!-- 게시물 목록 -->
+	<select id="list" resultType="com.memoji.domain.MemojiVO">
+		select
+	 		bno, title, errorcontent
+	 	from board order by date desc, time desc
+	</select>
+	
+	 <!-- 게시물 등록  -->
+    <insert id="create">
+	    insert into board (title,link,errorcontent, content, date,time)
+	    values (#{title}, #{link}, #{errorcontent}, #{content}, NOW(),NOW())
+    </insert>
+    
+    <!--  게시글 상세정보  -->
+
+    <select id="detail" resultType="com.memoji.domain.MemojiVO">
+        select bno, title, link, errorcontent, content, date, time
+        from board where bno = #{bno}
+    </select>
+    
+    <!-- 게시글 업데이트(수정) -->
+    <update id="update" parameterType="com.memoji.domain.MemojiVO">
+    	update board SET bno = #{bno}, title = #{title}, link = #{link}, errorcontent = #{errorcontent}, content = #{content} 
+    	WHERE bno = #{bno};
+    </update>
+    
+    <!-- 삭제  -->
+    <delete id="delete">
+        delete from board
+        where bno=#{bno}
+    </delete>
+    
+    <!-- 게시물 총 개수 -->
+    <select id="count" resultType="int">
+    	select count(bno) from board
+    </select>
+    
+    <!-- 게시물 목록 + 페이징 -->
+    <select id="listPage" parameterType="hashMap" resultType="com.memoji.domain.MemojiVO">
+    	select 
+    	bno,title,errorcontent 
+    	from board 
+    	order by bno desc 
+    	limit #{displayPost}, #{postNum}
+    </select>
+    
+    <!-- 게시물 목록 + 페이징 + 검색 
+    <select id="listPageSearch" parameterType="hashMap" resultType="com.memoji.domain.MemojiVO">
+    	select 
+    	title, content, errorcontent 
+    	from board
+    	
+    	<if test='keyword'>
+	    	where errorcontent like concat('%', #{keyword}, '%')
+    	</if>
+    	<if test='keyword'>
+	    	where content like concat('%', #{keyword}, '%')
+    	</if>
+    	<if test='keyword'>
+	    	where title like concat('%', #{keyword}, '%')
+    	</if>
+    	order by bno desc 
+    	limit #{displayPost}, #{postNum}
+    </select>
+    -->
+    
+    <!-- 게시물 검색 -->
+    <select id="listPageSearch" parameterType="hashMap" resultType="com.memoji.domain.MemojiVO">
+    	select 
+    	title, content, errorcontent 
+    	from board 
+    	where title like concat('%', #{keyword}, '%') or
+	    content like concat('%', #{keyword}, '%') or
+	    errorcontent like concat('%', #{keyword}, '%') 
+
+    	order by bno desc 
+    	limit #{displayPost}, #{postNum}
+    </select>
+    
+    <!-- 게시물 총 개수 + 검색 -->
+    <select id="searchCount" parameterType="hashMap" resultType="int">
+    	select count(bno) from board
+    	where title like concat('%', #{keyword}, '%') or
+	    content like concat('%', #{keyword}, '%') or
+	    errorcontent like concat('%', #{keyword}, '%') 
+    </select>
+    
+    <select id="memoList" resultType="com.memoji.domain.MemojiVO">
+		select
+	 		bno, title, errorcontent, date
+	 	from board order by date desc, time desc
+	</select>
+	
+	<select id="memoListPage" parameterType="hashMap" resultType="com.memoji.domain.MemojiVO">
+    	select 
+	    	bno, title, errorcontent, date
+	    	from board 
+	    	order by bno desc 
+    	limit #{displayPost}, #{postNum}
+    </select>
+</mapper>
