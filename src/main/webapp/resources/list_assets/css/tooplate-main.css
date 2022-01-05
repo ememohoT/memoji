@@ -268,9 +268,25 @@ div.section-heading{
 	transition: transform 0.4s;
 	color: #000;
 }
+.cs-style-3 figure h4 {
+	text-align: center;
+	line-height: 100px;
+	transition: transform 0.4s;
+	color: #000;
+}
+.cs-style-3 figure h5 {
+	text-align: center;
+	line-height: 160px;
+	transition: transform 0.4s;
+	color: #000;
+}
 
 .cs-style-3 figure:hover h1,
-.cs-style-3 figure.cs-hover h1 {
+.cs-style-3 figure.cs-hover h1,
+.cs-style-3 figure:hover h4,
+.cs-style-3 figure.cs-hover h4,
+.cs-style-3 figure:hover h5,
+.cs-style-3 figure.cs-hover h5 {
 	transform: translateY(-30px);
 }
 .grid figure {

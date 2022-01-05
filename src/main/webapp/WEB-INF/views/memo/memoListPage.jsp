@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <!DOCTYPE html>
@@ -64,6 +65,7 @@
        
         <div class="row posts">
 
+		<!-- 메모 작성 버튼 -->
         <div class="item low new col-md-4 grid cs-style-3" >
             <div class="featured-item" id="createBtn">
               <a href="<c:url value='/memo/create'/>" id="writeBtnA"><span id="writeBtn">+</span></a>
@@ -71,17 +73,38 @@
         </div>
 
 		
-             
-        <!-- 수정할부분 -->
-		<c:forEach items="${list}" var="list">
+        <!-- 작성한 메모 출력 -->
+        <c:forEach items="${list}" var="list">
 	 		<a href="${path}/memo/detail?bno=${list.bno}">
 	 		<div class="item low new col-md-4 grid cs-style-3">
                 <figure>
                 <div class="featured-item">
-                  <h1>${list.title}</h1>
-            </a>
-                    <figcaption>
-                      <h5>${list.errorcontent}</h5>
+
+					<c:if test="${fn:length(list.title) <= 8}">
+	                  <h1>${list.title}</h1>
+					</c:if>
+	                <c:if test="${fn:length(list.title) > 8 && fn:length(list.title) <= 13}">
+	                  <h4>${list.title}</h4>
+					</c:if>
+					<c:if test="${fn:length(list.title) == 14}">
+	                  <h5 id="eqfourteen">${list.title}</h5>
+					</c:if>
+					<c:if test="${fn:length(list.title) > 14}">
+	                  <h5>${list.title}</h5>
+					</c:if>
+					
+           	 </a>
+           	 
+           	 		<!-- hover -->
+                     <figcaption>
+                    
+	                    <c:if test="${fn:length(list.errorcontent) <= 7}">
+	                      <h3>${list.errorcontent}</h3>
+						</c:if>
+	                    <c:if test="${fn:length(list.errorcontent) > 7}">
+	                      <h6>${list.errorcontent}</h6>
+						</c:if>
+						
                       <span><fmt:formatDate value="${list.date}" pattern="yyyy-MM-dd" /></span>
                       <button type="button" id="delBtn" onclick="delBtn(${list.bno})">삭제</button>
                       <a href="/memo/update?bno=${list.bno}"><button type="button" id="modBtn">수정</button></a>
@@ -94,14 +117,14 @@
          </div>
      </div>
 
-
-
     <div class="page-navigation">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <ul>
             
+            
+            <!-- 페이징 -->
             <c:if test="${page.prev}">
               <li><a href="memoListPage?num=${page.startPageNum - 1}"><i class="fa fa-angle-left"></i></a></li>
             </c:if>
@@ -123,8 +146,6 @@
         </div>
       </div>
     </div>
-    <!-- Featred Page Ends Here -->
-
 
 
 
@@ -141,6 +162,7 @@
 
      <script>
      
+     	/* 첫번째 페이지만 메모 작성 버튼 보이기 */
     	function create(){
     		let createBtn = document.getElementById("createBtn");
     		if ("${select}" != 1) {
@@ -153,6 +175,8 @@
     	
     	create()
     	
+    	
+    	/* 삭제 버튼 클릭 */
     	function delBtn(bno) {
 			
     		let chk = confirm('삭제하시겠습니까?');
