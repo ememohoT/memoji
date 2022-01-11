@@ -90,7 +90,7 @@ public class MemoDAOImpl implements MemoDAO {
 	@Override
 	public int searchCount(String keyword) throws Exception {
 		
-		HashMap<String, Object> data = new HashMap<String, Object>();
+		HashMap data = new HashMap();
 		
 		data.put("keyword", keyword);
 		
@@ -104,7 +104,7 @@ public class MemoDAOImpl implements MemoDAO {
 		return sql.selectList(namespace + ".memoList");
 	}
 
-	
+	// 리스트페이지 + 페이징
 	@Override
 	public List<MemojiVO> memoListPage(int displayPost, int postNum) throws Exception {
 		
@@ -114,6 +114,20 @@ public class MemoDAOImpl implements MemoDAO {
 		data.put("postNum", postNum);
 		
 		return sql.selectList(namespace + ".memoListPage", data);
+	}
+	
+	// 리스트페이지 + 페이징 + 검색
+	@Override
+	public List<MemojiVO> memoListPageSearch(int displayPost, int postNum, String keyword) throws Exception {
+
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+		
+		data.put("keyword", keyword);
+		
+		return sql.selectList(namespace + ".memoListPageSearch", data);
 	}
 
 }

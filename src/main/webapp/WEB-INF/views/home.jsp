@@ -19,7 +19,7 @@
 						<header id="header">
 							<nav id="nav">
 								<ul>
-									<li><a href='<c:url value='/memo/memoListPage?num=1'/>' role="button" class="button">들어가기</a></li>
+									<li><a href='<c:url value='/memo/memoListPageSearch?num=1'/>' role="button" class="button">들어가기</a></li>
 								</ul>
 							</nav>
 						</header>

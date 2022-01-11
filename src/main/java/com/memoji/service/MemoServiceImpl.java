@@ -86,8 +86,13 @@ public class MemoServiceImpl implements MemoService {
 	// new list + paging
 	@Override
 	public List<MemojiVO> memoListPage(int displayPost, int postNum) throws Exception {
-		
 		return dao.memoListPage(displayPost, postNum);
+	}
+
+	//new list + paging + search
+	@Override
+	public List<MemojiVO> memoListPageSearch(int displayPost, int postNum, String keyword) throws Exception {
+		return dao.memoListPageSearch(displayPost, postNum, keyword);
 	}
 
 	

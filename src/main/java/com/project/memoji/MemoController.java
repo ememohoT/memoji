@@ -101,56 +101,77 @@ public class MemoController {
 	}
 	
 	// 게시물 목록 + 페이징 추가 + 검색
-		@RequestMapping(value = "/listPageSearch", method = RequestMethod.GET)
-		public void getListPageSearch(Model model, @RequestParam("num") int num, 
-				@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword
-				) throws Exception {
-			
-			Page page = new Page();
-			
-			page.setNum(num);
-			//page.setCount(service.count());
-			page.setCount(service.searchCount(keyword));
-			
-			//검색어
-			page.setSearchTypeKeyword(keyword);
-			
-			List<MemojiVO> list = null;
-			list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), keyword);
-			
-			model.addAttribute("list", list);
-			model.addAttribute("page", page);
-			model.addAttribute("keyword", keyword);
-
-			
-		}
-	
-		// new list page
-		@RequestMapping(value="/memoList", method=RequestMethod.GET)
-		public String getMemoList(Model model) {
-			List<MemojiVO> list = service.memoList();
-			model.addAttribute("list", list);
-	
-			return "memo/memoList";
-		}
+	@RequestMapping(value = "/listPageSearch", method = RequestMethod.GET)
+	public void getListPageSearch(Model model, @RequestParam("num") int num, 
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword
+			) throws Exception {
 		
+		Page page = new Page();
+		
+		page.setNum(num);
+		//page.setCount(service.count());
+		page.setCount(service.searchCount(keyword));
+		
+		//검색어
+		page.setSearchTypeKeyword(keyword);
+		
+		List<MemojiVO> list = null;
+		list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), keyword);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);
+		model.addAttribute("keyword", keyword);
 
-		// list + paging
-		@RequestMapping(value = "/memoListPage", method = RequestMethod.GET)
-		public void getMemoListPage(Model model, @RequestParam("num") int num) throws Exception {
-			
-			Page page = new Page();
-			page.setNum(num);
-			page.setCount(service.count());
-			
-			List<MemojiVO> list = null;
-			list = service.memoListPage(page.getDisplayPost(), page.getPostNum());
-			
-			model.addAttribute("list", list);
-			model.addAttribute("page", page);
-			model.addAttribute("select", num);
-			
-		}
+		
+	}
+	
+	// new list page
+	@RequestMapping(value="/memoList", method=RequestMethod.GET)
+	public String getMemoList(Model model) {
+		List<MemojiVO> list = service.memoList();
+		model.addAttribute("list", list);
+
+		return "memo/memoList";
+	}
+	
+
+	// list + paging
+	@RequestMapping(value = "/memoListPage", method = RequestMethod.GET)
+	public void getMemoListPage(Model model, @RequestParam("num") int num) throws Exception {
+		
+		Page page = new Page();
+		page.setNum(num);
+		page.setCount(service.count());
+		
+		List<MemojiVO> list = null;
+		list = service.memoListPage(page.getDisplayPost(), page.getPostNum());
+		
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);
+		model.addAttribute("select", num);
+		
+	}
+	
+	// list + paging + search
+	@RequestMapping(value = "/memoListPageSearch", method = RequestMethod.GET)
+	public void getMemoListPageSearch(Model model, @RequestParam("num") int num,
+			@RequestParam(value="keyword", required=false, defaultValue="") String keyword) throws Exception {
+		
+		Page page = new Page();
+		page.setNum(num);
+		//page.setCount(service.count());
+		page.setCount(service.searchCount(keyword));
+		
+		List<MemojiVO> list = null;
+		// list = service.memoListPage(page.getDisplayPost(), page.getPostNum());
+		list = service.memoListPageSearch(page.getDisplayPost(), page.getPostNum(), keyword);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);
+		model.addAttribute("select", num);
+		model.addAttribute("keyword", keyword);
+		
+	}
 		
 
 	

@@ -33,9 +33,9 @@ public class Page {
 	// 데이터들 계산하는 메서드
 	private void dataCalc() {
 		
-		if (num==1) {
-			postNum = 5;
-		} else postNum = 6;
+		if (num==1) { postNum = 5; } else postNum = 6;
+		//postNum=6;
+		
 		
 		// 마지막 번호
 		endPageNum = (int)(Math.ceil((double)num / (double)pageNumCnt) * pageNumCnt);
@@ -44,17 +44,24 @@ public class Page {
 		startPageNum = endPageNum - (pageNumCnt -1);
 		
 		// 마지막 번호 재계산
-		int endpageNum_tmp = (int)(Math.ceil((double)count / (double)postNum));
 		
+		int endpageNum_tmp = (int)(Math.ceil((double)count / (double)postNum));
 		if (endPageNum > endpageNum_tmp) {
 			
 			endPageNum = endpageNum_tmp;
+			
+		}
+		if (count % 6 == 0 && num != 1) {
+			endPageNum += 1;
 		}
 		
 		prev = startPageNum == 1 ? false : true;
 		next = endPageNum * postNum >= count ? false : true;
 		
-		displayPost = (num - 1) * postNum;
+		if (num>=2) { displayPost = ((num - 1) * postNum) -1; } 
+		else { displayPost = (num - 1) * postNum; }
+//		displayPost = (num - 1) * postNum;
+//		System.out.println("num : " + num + ", endpageNum : " + endPageNum + ", endpageNum_tmp : " + endpageNum_tmp);
 	}
 	
 	
