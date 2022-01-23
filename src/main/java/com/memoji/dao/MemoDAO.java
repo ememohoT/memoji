@@ -29,8 +29,7 @@ public interface MemoDAO {
 	public List<MemojiVO> memoListPage(int displayPost, int postNum) throws Exception;
 
 	public List<MemojiVO> memoListPageSearch(int displayPost, int postNum, String keyword) throws Exception;
-	
 
-	
+	public void viewcnt(int bno);
 
 }

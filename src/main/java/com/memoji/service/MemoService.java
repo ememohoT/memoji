@@ -30,5 +30,6 @@ public interface MemoService {
 
 	public List<MemojiVO> memoListPageSearch(int displayPost, int postNum, String keyword) throws Exception;
 
+	public void viewcnt(int bno);
 	
 }

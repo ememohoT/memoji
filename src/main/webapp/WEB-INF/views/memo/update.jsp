@@ -1,98 +1,197 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>update</title>
 
-	<link rel="stylesheet" href="../resources/fontawesome/css/all.min.css"> 
-	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../resources/css/templatemo-xtra-blog.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-<!--
-    
-TemplateMo 553 Xtra Blog
+    <title>EMEMOHO</title>
 
-https://templatemo.com/tm-553-xtra-blog
+    <!-- Bootstrap core CSS -->
+    <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
--->
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="../resources/list_assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../resources/list_assets/css/tooplate-main.css">
+    <link rel="stylesheet" href="../resources/list_assets/css/owl.css">
+
 </head>
+
 <body>
-	<header class="tm-header" id="tm-header">
-        <div class="tm-header-wrapper wrapper-green">
-            <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="tm-site-header">
-                <div class="mb-3 mx-auto tm-site-logo">
-                    </div>            
-                <h1 class="text-center">무제</h1>
-            </div>
-            <nav class="tm-nav" id="tm-nav">            
-                <ul>
-                    <li class="tm-nav-item"><a href="index.html" class="tm-nav-link">
-                        <i class="fas fa-home"></i>
-                        Blog Home
-                    </a></li>
-                </ul>
-            </nav>
-    </header>
-    <div class="container-fluid">
-        <main class="tm-main">
-            <!-- Search form -->
-            <div class="row tm-row">
-                <div class="col-12">
-                    <form method="GET" class="form-inline tm-mb-80 tm-search-form">                
-                        <input class="form-control tm-search-input" name="query" type="text" placeholder="Search..." aria-label="Search">
-                        <button class="tm-search-button" type="submit">
-                            <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
-                        </button>                                
-                    </form>
-                </div>                
-            </div>            
-            <div class="row tm-row tm-mb-120">
-                <div class="col-12">
-                    <h2 class="tm-color-primary tm-post-title tm-mb-60">수정하기(나중에 바꿔야됨)</h2>
-                </div>
-                <div class="col-lg-7 tm-contact-left">
-                    <form method="POST" name="update" class="mb-5 ml-auto mr-0 tm-contact-form">                        
-                        <div class="form-group row mb-4">
-                            <label for="name" class="col-sm-3 col-form-label text-right tm-color-primary">제목</label>
-                            <div class="col-sm-9">
-                                <input class="form-control mr-0 ml-auto" name="title" id="title" value="${data.title}" type="text" required>                           
-                            </div>
-                        </div>
-                        <div class="form-group row mb-4">
-                            <label for="email" class="col-sm-3 col-form-label text-right tm-color-primary">링크</label>
-                            <div class="col-sm-9">
-                                <input class="form-control mr-0 ml-auto" name="link" id="link" value="${data.link}" type="url" required>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-4">
-                            <label for="subject" class="col-sm-3 col-form-label text-right tm-color-primary">에러내용</label>
-                            <div class="col-sm-9">
-                                <input class="form-control mr-0 ml-auto" name="errorcontent" id="errorcontent" value="${data.errorcontent}" type="text" required>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-5">
-                            <label for="message" class="col-sm-3 col-form-label text-right tm-color-primary">메모</label>
-                            <div class="col-sm-9">
-                                 <input class="form-control mr-0 ml-auto" name="content" id="content" value="${data.content}" rows="8" required></input>                                
-                            </div>
-                        </div>
-                        <div class="form-group row text-right">
-                            <div class="col-12">
-                                <button class="tm-btn tm-btn-primary tm-btn-small">수정</button>                        
-                            </div>                            
-                        </div>                                
-                    </form>
-                </div>
-            </div>      
-        </main>
+
+    <!-- banner -->
+    <div class="banner">
+        <div class="container">
+            <h1>EMEMOHO</h1>
+            <a href="#" class="btn btn-default">이름님</a>
+        </div>
     </div>
-</body>
+    <!-- banner end -->
+
+
+    <div class="featured-page">
+        <div class="container">
+            <div class="row">
+
+            <div class="col-md-7 col-sm-12">
+                <div id="filters" class="button-group">
+                <button class="btn btn-primary" id="recentBtn">최신글</button>
+                </div>
+            </div>            
+            </div>
+        </div>
+    </div>
+
+    <div id="wrap">
+        
+
+    <!-- 메모지 배경 -->
+    <div id="memoimg"></div>
+            
+    <!-- input -->
+    
+    
+        <!-- <div class="row tm-row tm-mb-120" id="writeFrm"> -->
+        <div id="writeFrm">
+            <!-- <div class="col-lg-7 tm-contact-left"> -->
+            <!-- <div> -->
+                <form method="POST" action="">     
+                
+                	<div id="writeFrmArea">
+        
+		        <span id="languages">
+		            <span>언어 및 프레임워크</span>
+		            <select name="language">
+		            	<option value="${data.language}">${data.language}</option>
+		                <option value="React">React</option>
+		                <option value="ReactNative">ReactNative</option>
+		                <option value="Python">Python</option>
+		                <option value="Kotlin">Kotlin</option>
+		                <option value="MongoDB">MongoDB</option>
+		                <option value="Node.js">Node.js</option>
+		                <option value="Javascript">Javascript</option>
+		                <option value="Swift">Swift</option>
+		                <option value="HTML">HTML</option>
+		                <option value="Angular">Angular</option>
+		                <option value="TypeScript">TypeScript</option>
+		                <option value="C#">C#</option>
+		                <option value="Spring">Spring</option>
+		                <option value="VisualBasic">VisualBasic</option>
+		                <option value="CSS">CSS</option>
+		                <option value="Firebase">Firebase</option>
+		                <option value="AWS">AWS</option>
+		                <option value="GO">GO</option>
+		                <option value="SQL">SQL</option>
+		                <option value="C++">C++</option>
+		                <option value="Vue">Vue</option>
+		                <option value="Rust">Rust</option>
+		                <option value="C">C</option>
+		                <option value="Dart">Dart</option>
+		                <option value="Svelte">Svelte</option>
+		                <option value="GraphQL">GraphQL</option>
+		                <option value="R">R</option>
+		                <option value="Docker">Docker</option>
+		                <option value="PHP">PHP</option>
+		                <option value="Laravel">Laravel</option>
+		                <option value="Django">Django</option>
+		                <option value="TensorFlow">TensorFlow</option>
+		                <option value="PostgresQL">PostgresQL</option>
+		                <option value="Objective-C">Objective-C</option>
+		                <option value="Objective-C">Ruby</option>
+		            </select>
+		        </span>                   
+		        
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>제목</th>
+                                <td><input type="text" name="title" id="title" value="${data.title}" required></td>
+                            </tr>
+                            <tr>
+                                <th>링크</th>
+                                <td><input type="url" name="link" id="link" value="${data.link}" required></td>
+                            </tr>
+                            <tr>
+                                <th>에러내용</th>
+                                <td><input type="text" name="errorcontent" id="errorcontent" value="${data.errorcontent}" required></td>
+                            </tr>
+                            <tr>
+                                <th>메모</th>
+                                <td><textarea name="content" id="content" required>${data.content}</textarea></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="sbmBtnArea">
+                        <button type="submit" class="up_sbmBtn" class="tm-btn tm-btn-primary tm-btn-small">
+                        	<i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>                        
+                    </div> 
+                </form>
+            <!-- </div> -->
+        </div>   
+    
+
+    </div>
+    <!-- writeFrmArea -->
+
+    </div>
+
+
+    <!-- div#wrap -->
+
+    <!-- Footer Starts Here -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="footer-menu">
+              <ul>
+                <li><a href="#">LOGOUT</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="social-icons">
+              <ul>
+                <li><a href="mailto:yoonbitnara@gmail.com"><i class="fa fa-envelope"></i></a></li>
+                <li><a href="mailto:ejins0193@gmail.com"><i class="fa fa-envelope"></i></a></li>
+                <li><a href="#"><i class="fa fa-github-square"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Ends Here -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../resources/vendor/jquery/jquery.min.js"></script>
+    <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Additional Scripts -->
+    <script src="../resources/list_assets/js/owl.js"></script>
+    <script src="../resources/list_assets/js/isotope.js"></script>
+
+	<script>
+	$(function(){
+    	/* 최신글 */
+		$("#recentBtn").click(function(){
+			location.href="memoListPageSearch?num=1&keyword="
+		})
+		
+		
+	})
+	</script>
+
+    </body>
+
 </html>

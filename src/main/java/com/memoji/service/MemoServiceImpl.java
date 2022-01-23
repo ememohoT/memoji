@@ -95,6 +95,10 @@ public class MemoServiceImpl implements MemoService {
 		return dao.memoListPageSearch(displayPost, postNum, keyword);
 	}
 
+	// 조회수 증가
+	@Override
+	public void viewcnt(int bno) {
+		dao.viewcnt(bno);
+	}
 	
-
 }

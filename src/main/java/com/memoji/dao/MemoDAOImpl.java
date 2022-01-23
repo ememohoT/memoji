@@ -130,4 +130,10 @@ public class MemoDAOImpl implements MemoDAO {
 		return sql.selectList(namespace + ".memoListPageSearch", data);
 	}
 
+	// 조회수 증가
+	@Override
+	public void viewcnt(int bno) {
+		sql.update("viewcnt", bno);
+	}
+
 }

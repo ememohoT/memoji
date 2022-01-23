@@ -12,21 +12,21 @@
 	</select>
 	
 	 <!-- 게시물 등록  -->
-    <insert id="create">
-	    insert into board (title,link,errorcontent, content, date,time)
-	    values (#{title}, #{link}, #{errorcontent}, #{content}, NOW(),NOW())
+    <insert id="create" parameterType="com.memoji.domain.MemojiVO">
+	    insert into board (title, link, errorcontent, content, language, date, time)
+	    values (#{title}, #{link}, #{errorcontent}, #{content}, #{language}, NOW(), NOW())
     </insert>
     
     <!--  게시글 상세정보  -->
-
     <select id="detail" resultType="com.memoji.domain.MemojiVO">
-        select bno, title, link, errorcontent, content, date, time
+        select bno, title, link, errorcontent, content, language, viewcnt, date, time
         from board where bno = #{bno}
     </select>
     
     <!-- 게시글 업데이트(수정) -->
     <update id="update" parameterType="com.memoji.domain.MemojiVO">
-    	update board SET bno = #{bno}, title = #{title}, link = #{link}, errorcontent = #{errorcontent}, content = #{content} 
+    	update board SET bno = #{bno}, title = #{title}, link = #{link}, 
+    	errorcontent = #{errorcontent}, content = #{content}, language = #{language}
     	WHERE bno = #{bno};
     </update>
     
@@ -115,16 +115,54 @@
     <!-- 게시글 목록 + 페이징 + 검색(title) -->
     <select id="memoListPageSearch" parameterType="hashMap" resultType="com.memoji.domain.MemojiVO">
     	select 
-	    	bno, title, errorcontent, date
+	    	bno, title, language, date
 	    	from board 
 	    	where title like concat('%', #{keyword}, '%')
+	    	or content like concat('%', #{keyword}, '%')
 	    	order by bno desc 
     	limit #{displayPost}, #{postNum}
     </select>
     
     <!-- 검색했을 때 게시물 총 개수 구하기 -->
-     <select id="searchCount" parameterType="hashMap" resultType="int">
+    <select id="searchCount" parameterType="hashMap" resultType="int">
     	select count(bno) from board
-    	where title like concat('%', #{keyword}, '%')
+    	where title like concat('%', #{keyword}, '%') or content like concat('%', #{keyword}, '%')
     </select>
+    
+    <!-- 조회수 증가 -->
+    <update id="viewcnt" parameterType="int">
+    	update board set viewcnt = viewcnt+1 where bno = #{bno};
+    </update>
+    
+     <!-- 회원가입 -->
+    <insert id="register">
+    	insert into myMember(userId, userPass, regDate) 
+    	values (#{userId}, #{userPass}, now())
+    </insert>
+    
+    <!-- 로그인 -->
+    <select id="login" resultType="com.memoji.domain.MemberVO">
+    	select userId from myMember where userId = #{userId} and userPass = #{userPass}
+    </select>
+    
+    <!-- 로그인 - 암호화 적용 -->
+	<select id="loginBcrypt" resultType="com.memoji.domain.MemberVO">
+		 select
+		  userId, userPass
+		 from
+		  myMember
+		 where userId = #{userId}
+	</select>
+    
+    <!-- 아이디 중복 체크 -->
+    <select id="idChk" resultType="int">
+    	select count(userId) from myMember
+    	where userId = #{userId}
+    </select>
+<!--   
+    <select id="idChk" resultType="com.memoji.domain.MemberVO">
+    	select userId from myMember
+    	where userId = #{userId}
+    </select>
+ -->
 </mapper>

@@ -10,6 +10,7 @@ public class MemojiVO {
 	private String link;
 	private String errorcontent;
 	private String content;
+	private String language;
 	private Date date;
 	private Time time;
 	private int bookmark;
@@ -46,6 +47,12 @@ public class MemojiVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 	public Date getDate() {
 		return date;
 	}
@@ -70,5 +77,6 @@ public class MemojiVO {
 	public void setViewcnt(int viewcnt) {
 		this.viewcnt = viewcnt;
 	}
+	
 
 }

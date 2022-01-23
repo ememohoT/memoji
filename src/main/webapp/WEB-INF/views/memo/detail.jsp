@@ -2,106 +2,172 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>상세페이지</title>
-	<link rel="stylesheet" href="../resources/fontawesome/css/all.min.css"> 
-	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../resources/css/templatemo-xtra-blog.css" rel="stylesheet">
-	<!-- 
-     -->
-<!--
-    
-TemplateMo 553 Xtra Blog
 
-https://templatemo.com/tm-553-xtra-blog
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 
--->
+    <title>EMEMOHO</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="../resources/list_assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../resources/list_assets/css/tooplate-main.css">
+    <link rel="stylesheet" href="../resources/list_assets/css/owl.css">
+
 </head>
+
 <body>
-	<header class="tm-header" id="tm-header">
-        <div class="tm-header-wrapper">
-            <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="tm-site-header">
-                <div class="mb-3 mx-auto tm-site-logo"><i class="fas fa-times fa-2x"></i></div>            
-                <h1 class="text-center">무제</h1>
-            </div>
-            <nav class="tm-nav" id="tm-nav">            
-                <ul>
-                    <li class="tm-nav-item"><a href="#" class="tm-nav-link">
-                        <i class="fas fa-home"></i>
-                        Blog Home
-                    </a></li>
-                </ul>
-            </nav>
+
+    <!-- banner -->
+    <div class="banner">
+        <div class="container">
+            <h1>EMEMOHO</h1>
+            <a href="#" class="btn btn-default">이름님</a>
         </div>
-    </header>
-    <div class="container-fluid">
-        <main class="tm-main">
-                 
-            <div class="row tm-row">
-                <div class="col-12">
-                    <hr class="tm-hr-primary tm-mb-55">
-                </div>
-            </div>
-            <div class="row tm-row">
-                <div class="col-lg-8 tm-post-col">
-                    <div class="tm-post-full">                    
-                        <div class="mb-4">
-                            <h2 class="pt-2 tm-color-primary tm-post-title">${data.title}</h2>
-                            <p class="tm-mb-40"><fmt:formatDate value="${data.date}" pattern="yyyy-MM-dd"/></p>
-                            <h2 class="pt-2 tm-color-primary tm-post-title">에러내용</h2>
-                            <p>
-                                ${data.errorcontent}
-                            </p>
-                            <hr class="tm-hr-primary tm-mb-45">
-                            <h2 class="pt-2 tm-color-primary tm-post-title">메모</h2>
-                            <p>
-                               ${data.content}
-                            </p>
-                            <hr class="tm-hr-primary tm-mb-45">
-                        </div>
-                        
-                        <!-- Comments -->
-                        <div class="tm-mt-100">
-                            <h2 class="tm-color-primary tm-post-title">링크</h2>
-                            <hr class="tm-hr-primary tm-mb-45">
-                            <div class="tm-comment tm-mb-45">
-                                <div>
-                                    <p>
-                                        <a href="${data.link}">
-                                            ${data.link}
-                                        </a>
-                                    </p>                                         
-                                </div>                                
-                            </div>
-                        </divtm-mt-50>
-                    </div>
-                    <div class="form-group row text-right">
-                        <div class="col-12">
-                           <%-- 
-                                <button onclick="location.href='/memo/delete?bno=${data.bno}'" class="tm-btn tm-btn-primary tm-btn-small">삭제</button>
-                          --%>
-                                <button type="button" onclick="delOk()" class="tm-btn tm-btn-primary tm-btn-small">삭제</button>
-                                <button onclick="location.href='/memo/update?bno=${data.bno}'" class="tm-btn tm-btn-primary tm-btn-small">수정</button>                        
-          
-                    </div>
-                </div>
-        </main>
     </div>
-    <script>
-    	function delOk(){
+    <!-- banner end -->
+
+
+    <div class="featured-page">
+        <div class="container">
+            <div class="row">
+
+            <div class="col-md-7 col-sm-12">
+                <div id="filters" class="button-group">
+                <button class="btn btn-primary" id="recentBtn">최신글</button>
+                </div>
+            </div>            
+            </div>
+        </div>
+    </div>
+
+    <div id="wrap">
+        
+
+    <!-- 메모지 배경 -->
+    <div id="memoimg"></div>
+            
+    <!-- input -->
+    <div id="writeFrmArea">
+    
+    
+        <!-- <div class="row tm-row tm-mb-120" id="writeFrm"> -->
+        <div id="writeFrm">
+            <!-- <div class="col-lg-7 tm-contact-left"> -->
+            <!-- <div> -->
+                <div id="detail_sbmBtnArea">
+                    <button class="sbmBtn" class="tm-btn tm-btn-primary tm-btn-small"
+                    onclick="location.href='/memo/update?bno=${data.bno}'">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>                        
+                    <button class="sbmBtn" class="tm-btn tm-btn-primary tm-btn-small" onclick="delOk()">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>                        
+                </div> 
+		    	<span id="detail_languages">
+		            <span>언어 및 프레임워크</span>
+		            <select name="language" id="language">
+		                <option value="${data.language}">${data.language}</option>
+		            </select>
+		        </span>
+                <form method="POST" action="">                        
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>제목</th>
+                                <td>${data.title }</td>
+                            </tr>
+                            <tr>
+                                <th>링크</th>
+                                <td><a href="${data.link }">${data.link }</a></td>
+                            </tr>
+                            <tr>
+                                <th>에러내용</th>
+                                <td>${data.errorcontent }</td>
+                            </tr>
+                            <tr>
+                                <th>메모</th>
+                                <td><textarea name="content" id="detailContent" readonly wrap="hard">${data.content }</textarea></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            <!-- </div> -->
+        </div>   
+    
+
+    </div>
+    <!-- writeFrmArea -->
+
+    </div>
+
+
+    <!-- div#wrap -->
+
+    <!-- Footer Starts Here -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="footer-menu">
+              <ul>
+                <li><a href="#">LOGOUT</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="social-icons">
+              <ul>
+                <li><a href="mailto:yoonbitnara@gmail.com"><i class="fa fa-envelope"></i></a></li>
+                <li><a href="mailto:ejins0193@gmail.com"><i class="fa fa-envelope"></i></a></li>
+                <li><a href="#"><i class="fa fa-github-square"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Ends Here -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../resources/vendor/jquery/jquery.min.js"></script>
+    <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Additional Scripts -->
+    <script src="../resources/list_assets/js/owl.js"></script>
+    <script src="../resources/list_assets/js/isotope.js"></script>
+
+
+	<script>
+		$(function(){
+	    	/* 최신글 */
+			$("#recentBtn").click(function(){
+				location.href="memoListPageSearch?num=1&keyword="
+			})
+		})
+		
+		/* 삭제버튼 */
+		function delOk(){
     		let chk = confirm("삭제하시겠습니까?")
     		if(chk){
     			location.href="/memo/delete?bno=${data.bno}"
     		}
     		else return;
     	}
-    </script>
-</body>
+		
+		alert("이 게시물을 총 " + ${data.viewcnt} + "번 클릭하셨습니다 🧐");
+	</script>
+    </body>
+
 </html>

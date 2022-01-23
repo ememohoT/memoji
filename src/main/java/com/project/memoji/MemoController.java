@@ -3,6 +3,7 @@ package com.project.memoji;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,15 +46,21 @@ public class MemoController {
 		
 		service.create(vo);
 		
-		return "redirect:memoList";
+		return "redirect:memoListPageSearch?num=1&keyword=";
 	}
 	
 	// 상세페이지
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String getdetail(Model model, int bno) {
+		
+		service.viewcnt(bno);
+		model.addAttribute("viewcnt", bno);
+		
 		MemojiVO data = service.detail(bno);
 		model.addAttribute("data",data);
+
 		return "memo/detail";
+		
 	}
 	
 	// 수정 페이지 이동
@@ -70,7 +77,7 @@ public class MemoController {
 	public String postupdate(MemojiVO vo) throws Exception {
 		
 		service.update(vo);
-		return "redirect:memoList";
+		return "redirect:memoListPageSearch?num=1&keyword=";
 	}
 	
 	
@@ -79,7 +86,7 @@ public class MemoController {
 	public String postdelete(int bno) throws Exception {
 		
 		service.delete(bno);
-		return "redirect:memoListPage?num=1";
+		return "redirect:memoListPageSearch?num=1&keyword=";
 	}
 	
 	// 게시물 목록 + 페이징 추가
@@ -165,14 +172,20 @@ public class MemoController {
 		List<MemojiVO> list = null;
 		// list = service.memoListPage(page.getDisplayPost(), page.getPostNum());
 		list = service.memoListPageSearch(page.getDisplayPost(), page.getPostNum(), keyword);
+		list = service.memoListPageSearch(page.getDisplayPost(), page.getPostNum(), keyword);
 		
-		model.addAttribute("list", list);
+		if(!list.isEmpty()) {
+			model.addAttribute("list", list);
+		} else {
+			model.addAttribute("listChk", "empty");
+		}
+		
+		//model.addAttribute("list", list);
 		model.addAttribute("page", page);
 		model.addAttribute("select", num);
 		model.addAttribute("keyword", keyword);
 		
 	}
-		
 
 	
 }

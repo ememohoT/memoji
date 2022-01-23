@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <!DOCTYPE html>
@@ -8,7 +8,8 @@
 <head>
 <meta charset="ko">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet"> -->
@@ -28,38 +29,57 @@
   </head>
 
   <body>
+  
+
     <!-- banner -->
-			<div class="banner">
-				<div class="container">
-					<h1>EMEMOHO</h1>
-					<a href="#" class="btn btn-default">이름님</a>
-				</div>
-			</div>
-			<!-- banner end -->
+	<div class="banner">
+		<div class="container">
+			<h1>EMEMOHO</h1>
+			<a href="#" class="btn btn-default">이름님</a>
+		</div>
+	</div>
+	<!-- banner end -->
+
 
     <!-- Page Content -->
     <!-- Items Starts Here -->
+	<!-- <div id="wrap"> -->
 
-    <!-- div#flexcontainer -->
-    <div id="flexcontainer">
-    <!-- div#menu -->
-            <div id="menu">
-                <span><a href="#">최신글</a></span>
-                <span><a href="#">즐겨찾기</a></span>
-            </div>
+	<!-- pre-header start -->
+    <div class="featured-page">
+      <div class="container">
+        <div class="row">
 
-    <!-- div#searchArea -->
-        <div id="searchArea">
-            <div class="form-inline tm-mb-80 tm-search-form">
-                <input class="form-control tm-search-input" name="keyword" type="text" placeholder="Search..."
-                    aria-label="Search">
-                <button type="button" id="searchBtn">
-                    <i class="fa fa-search tm-search-icon" style="color: #ece9f6;" aria-hidden="true"></i>
-                </button>
-            </div>
+			<!-- 최신글/즐겨찾기 -->
+	        <div class="col-md-7 col-sm-12">
+        	  <div id="filters" class="button-group">
+	              <button class="btn btn-primary" id="recentBtn">최신글</button>
+	              <button class="btn btn-primary">즐겨찾기</button>
+          	  </div>
+        	</div>
+
+			<!-- searchArea -->
+          	<div class="col-md-5 col-sm-12">
+	            <div class="section-heading">
+	              	<div id="searchArea">
+	                	<div class="form-inline tm-mb-80 tm-search-form">
+	                    	<input class="form-control tm-search-input" name="keyword" type="text" placeholder="제목+내용 검색"
+	                    	    aria-label="Search" value="${keyword}" onkeyup="enterEvent()">
+	                   		<button type="button" id="searchBtn" onclick="searchBtn()">
+	                        	<i class="fa fa-search tm-search-icon" style="color: #ece9f6;" aria-hidden="true"></i>
+	                    	</button>
+	                	</div>
+	            	</div>
+	          	 </div>
+         	 </div>
+          
         </div>
-  </div>
+      </div>
+    </div>
+	<!-- pre-header end -->
   
+  
+	<!-- 메모지 출력 시작 -->  
     <div class="featured container no-gutter">
 
        
@@ -68,62 +88,92 @@
 		<!-- 메모 작성 버튼 -->
         <div class="item low new col-md-4 grid cs-style-3" >
             <div class="featured-item" id="createBtn">
-              <a href="<c:url value='/memo/create'/>" id="writeBtnA"><span id="writeBtn">+</span></a>
+              <span id="writeBtn"><a href="<c:url value='/memo/create'/>" id="writeBtnA">+</a></span>
             </div>
         </div>
+		<!-- 메모 작성 버튼 end -->
 
+		<c:if test="${listChk != 'empty' }">
 		
-        <!-- 작성한 메모 출력 -->
-        <c:forEach items="${list}" var="list">
-	 		<a href="${path}/memo/detail?bno=${list.bno}">
-	 		<div class="item low new col-md-4 grid cs-style-3">
-                <figure>
-                <div class="featured-item">
-
-					<c:if test="${fn:length(list.title) <= 8}">
-	                  <h1>${list.title}</h1>
-					</c:if>
-	                <c:if test="${fn:length(list.title) > 8 && fn:length(list.title) <= 13}">
-	                  <h4>${list.title}</h4>
-					</c:if>
-					<c:if test="${fn:length(list.title) == 14}">
-	                  <h5 id="eqfourteen">${list.title}</h5>
-					</c:if>
-					<c:if test="${fn:length(list.title) > 14}">
-	                  <h5>${list.title}</h5>
-					</c:if>
-					
-           	 </a>
-           	 
-           	 		<!-- hover -->
-                     <figcaption>
-                    
-	                    <c:if test="${fn:length(list.errorcontent) <= 7}">
-	                      <h3>${list.errorcontent}</h3>
+	        <!-- 작성한 메모 출력 -->
+	        <c:forEach items="${list}" var="list">
+		 		<div class="item low new col-md-4 grid cs-style-3">
+	                <figure>
+	                
+	                <i class="fa fa-bookmark fa-2x" id="starBtn">
+		              <input type="hidden" name="starBtnChk" id="starBtnChk" value="0">
+		            </i>
+	                
+		 		<a href="${path}/memo/detail?bno=${list.bno}">
+	                <div class="featured-item">
+	
+						<c:if test="${fn:length(list.title) <= 8}">
+		                  <h1>${list.title}</h1>
 						</c:if>
-	                    <c:if test="${fn:length(list.errorcontent) > 7}">
-	                      <h6>${list.errorcontent}</h6>
+		                <c:if test="${fn:length(list.title) > 8 && fn:length(list.title) <= 13}">
+		                  <h4>${list.title}</h4>
 						</c:if>
-						
-                      <span><fmt:formatDate value="${list.date}" pattern="yyyy-MM-dd" /></span>
-                      <button type="button" id="delBtn" onclick="delBtn(${list.bno})">삭제</button>
-                      <a href="/memo/update?bno=${list.bno}"><button type="button" id="modBtn">수정</button></a>
-                    </figcaption>
-                 </div>
-              </figure>
-            </div> 
-         </c:forEach>
+						<c:if test="${fn:length(list.title) == 14}">
+		                  <h5 id="eqfourteen">${list.title}</h5>
+						</c:if>
+						<c:if test="${fn:length(list.title) > 14}">
+		                  <h5>${list.title}</h5>
+						</c:if>
+				
+	           	 </a>
+	           	 
+	           	 		<!-- hover -->
+	                    <figcaption>
+	                    
+		                    <c:if test="${fn:length(list.language) <= 7}">
+		                      <h3>${list.language}</h3>
+							</c:if>
+		                    <c:if test="${fn:length(list.language) > 7}">
+		                      <h6>${list.language}</h6>
+							</c:if>
+							
+	                      <span><fmt:formatDate value="${list.date}" pattern="yyyy-MM-dd" /></span>
+	                      <button type="button" id="delBtn" onclick="delBtn(${list.bno})">삭제</button>
+	                      <a href="/memo/update?bno=${list.bno}"><button type="button" id="modBtn">수정</button></a>
+	                    </figcaption>
+	           	 		<!-- hover end -->
+	                </div>
+	              	</figure>
+	      </div> 
+          </c:forEach>
+	      <!-- 메모지 출력 end -->  
+	
+	</c:if>
+	
+	<!-- 검색어 없는 경우 출력 -->
+	
+	<c:if test="${listChk == 'empty' }">
 
-         </div>
-     </div>
+		<div class="item low new col-md-8 grid">
+	        <figure>
+	        <div class="featured-item" id="emptyKeyword">
+				<p>
+					<c:out value="${keyword }" />(으)로 작성하신 메모가 없습니다 😓
+					<br>➕ 버튼을 눌러 메모를 작성해주세요
+				</p> 
+	        </div>
+	      	</figure>
+	     </div> 
+	     
 
+	</c:if>
+	
+	</div>
+	<!-- 메모지출력 end -->
+
+	
+	<!-- 페이징 start -->
     <div class="page-navigation">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <ul>
-            
-            
+                        
             <!-- 페이징 -->
             <c:if test="${page.prev}">
               <li><a href="memoListPageSearch?num=${page.startPageNum - 1}"><i class="fa fa-angle-left"></i></a></li>
@@ -141,13 +191,41 @@
             <c:if test="${page.next}">
               <li><a href="memoListPageSearch?num=${page.endPageNum + 1}"><i class="fa fa-angle-right"></i></a></li>
             </c:if>
+            
             </ul>
           </div>
         </div>
       </div>
     </div>
+	<!-- 페이징 end -->
 
 
+	<!-- Footer Starts Here -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="footer-menu">
+              <ul>
+                <li><a href="#">LOGOUT</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="social-icons">
+              <ul>
+                <li><a href="mailto:yoonbitnara@gmail.com"><i class="fa fa-envelope"></i></a></li>
+                <li><a href="mailto:ejins0193@gmail.com"><i class="fa fa-envelope"></i></a></li>
+                <li><a href="https://github.com/ememohoT"><i class="fa fa-github-square"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Ends Here -->
+    
+    <div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="../resources/vendor/jquery/jquery.min.js"></script>
@@ -190,11 +268,41 @@
     	
     	
     	/* 검색 버튼 클릭 */
-    	document.getElementById("searchBtn").onclick = function(){
-    		
+    	function searchBtn(){
     		let keyword = document.getElementsByName("keyword")[0].value;
     		location.href = "memoListPageSearch?num=1&keyword=" + keyword;
     	}
+    	
+    	/* 검색 엔터 이벤트 */
+    	function enterEvent(){
+    		if (window.event.keyCode === 13) { 
+    			searchBtn();
+    	      }
+    	}
+    	
+    	$(function(){
+	    	/* 최신글 */
+    		$("#recentBtn").click(function(){
+    			location.href="memoListPageSearch?num=1&keyword="
+    		})
+    		
+    		/* 즐겨찾기 */
+    		$(".fa-bookmark").click(function(){
+
+	          if($(this).children("input").val() == 0){
+	            $(this).children("input").val(1);
+	            $(this).css("color","#e44c65");
+	          }
+	          
+	          else{
+	            $(this).children("input").val(0);
+	            $(this).css("color","#fff");
+	          }
+	        })
+    	
+    		
+    	})
+    	
     	
     </script>
 
