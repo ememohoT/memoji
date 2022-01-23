@@ -29,7 +29,7 @@
 
 ## <span style="color:#ece9f6"></span>👩‍💻 개발 인원</span>
 
-- 총 2명 (윤빛나라(팀장), 이진솔)
+- 총 2명 ([윤빛나라(팀장)](https://github.com/yoonbitnara), [이진솔](https://github.com/losuif))
 
 <br>
 <br>
@@ -65,7 +65,7 @@
 
 - CSS3 (Bootstrap)
 
-- JavaScript ES6 (jQuery)
+- JavaScript ES6 (jQuery, ajax)
 
 - Java 1.8 (Spring)
 
